@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
+import com.yihaomen.mybatis.inter.IUserOperation;
 import com.yihaomen.mybatis.model.User;
 
 public class Test {
@@ -29,8 +30,14 @@ public class Test {
 
 	public static void main(String[] args) {
 		SqlSession session = sqlSessionFactory.openSession();
-		User user = session.selectOne("com.yihaomen.mybatis.models.UserMapper.selectUserByID", 1);
-		System.out.println(user.getUserAddress());
-		System.out.println(user.getUserName());
+		
+//		User user = session.selectOne("com.yihaomen.mybatis.models.UserMapper.selectUserByID", 1);
+//		System.out.println(user.getUserAddress());
+//		System.out.println(user.getUserName());
+		
+		IUserOperation userOperation = session.getMapper(IUserOperation.class);
+		User user1 = userOperation.selectUserByID(1);
+		System.out.println(user1.getUserAddress());
+		System.out.println(user1.getUserName());
 	}
 }
